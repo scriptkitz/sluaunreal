@@ -21,13 +21,13 @@
 #define LUASOCKET_API extern
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*-------------------------------------------------------------------------*\
 * Initializes the library.
 \*-------------------------------------------------------------------------*/
 LUASOCKET_API int luaopen_socket_core(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* LUASOCKET_H */

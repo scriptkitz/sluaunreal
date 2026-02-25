@@ -11,7 +11,7 @@
 
 #ifdef _WIN32
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /* WinSock doesn't have a strerror... */
 static const char *wstrerror(int err);
@@ -437,6 +437,6 @@ const char *socket_gaistrerror(int err) {
 }
 
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif // _WIN32

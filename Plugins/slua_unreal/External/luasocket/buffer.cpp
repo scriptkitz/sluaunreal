@@ -7,7 +7,7 @@
 
 #include "buffer.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -277,4 +277,4 @@ static int buffer_get(p_buffer buf, const char **data, size_t *count) {
     return err;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

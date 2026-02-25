@@ -26,7 +26,7 @@
 */
 #define MAXUPVAL	255
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** Upvalues for Lua closures
@@ -56,6 +56,6 @@ LUAI_FUNC void luaF_freeproto (lua_State *L, Proto *f);
 LUAI_FUNC const char *luaF_getlocalname (const Proto *func, int local_number,
                                          int pc);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

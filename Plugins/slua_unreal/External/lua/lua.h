@@ -50,7 +50,7 @@
 #define LUA_ERRGCMM	5
 #define LUA_ERRERR	6
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 typedef struct lua_State lua_State;
 
@@ -483,6 +483,6 @@ struct lua_Debug {
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************/
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

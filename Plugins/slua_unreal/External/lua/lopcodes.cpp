@@ -12,7 +12,7 @@
 
 #include <stddef.h>
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* ORDER OP */
 #define opmode(t,a,b,c,m) (((t)<<7) | ((a)<<6) | ((b)<<4) | ((c)<<2) | (m))
@@ -68,4 +68,4 @@ LUAI_DDEF const lu_byte luaP_opmodes[NUM_OPCODES] = {
  ,opmode(0, 0, OpArgU, OpArgU, iAx)		/* OP_EXTRAARG */
 };
 
-} // end NS_SLUA
+E_NS_SLUA

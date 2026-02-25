@@ -36,7 +36,7 @@
 #include "lstring.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** Maximum size of array part (MAXASIZE) is 2^MAXABITS. MAXABITS is
@@ -667,4 +667,4 @@ int luaH_isdummy (const Table *t) { return isdummy(t); }
 
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA

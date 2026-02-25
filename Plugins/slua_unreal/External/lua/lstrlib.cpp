@@ -51,7 +51,7 @@
 	(sizeof(size_t) < sizeof(int) ? MAX_SIZET : (size_t)(INT_MAX))
 
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 static int str_len (lua_State *L) {
   size_t l;
@@ -1581,4 +1581,4 @@ LUAMOD_API int luaopen_string (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

@@ -4,6 +4,7 @@
 #include "UObject/Interface.h"
 #include "LuaObject.h"
 #include "LuaState.h"
+#include "LuaBlueprintLibrary.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "LuaOverriderInterface.generated.h"
 
@@ -52,6 +53,38 @@ public:
         }
 
         return GetCachedLuaFunc(nullptr, selfTable, FunctionName).isFunction();
+    }
+
+    NS_SLUA::LuaVar CallLuaFunction(const FString& FunctionName, const TArray<FLuaBPVar>& Args) {
+        NS_SLUA::LuaVar selfTable = GetSelfTable();
+        NS_SLUA::LuaVar ret = NS_SLUA::LuaVar();
+        if (!selfTable.isValid() || !selfTable.isTable()) {
+            NS_SLUA::Log::Error("Lua module not assign to UObject[%s]", TCHAR_TO_UTF8(*Cast<UObject>(this)->GetName()));
+            return ret;
+        }
+
+        NS_SLUA::LuaVar lfunc = GetCachedLuaFunc(nullptr, selfTable, FunctionName);
+
+        if (!lfunc.isFunction()) {
+			NS_SLUA::Log::Error("Can't find lua member function named %s to call", TCHAR_TO_UTF8(*FunctionName));
+			return false;
+		}
+		
+		auto L = selfTable.getState();
+
+        auto fillParam = [&]
+        {
+		    // push self
+		    selfTable.push(L);
+            // push arg to lua
+            for (auto& arg : Args) {
+                arg.value.push(L);
+            }
+            return Args.Num() + 1;
+        };
+
+		ret = lfunc.callWithNArg(fillParam);
+        return ret;
     }
 
     template<class RET, class ...ARGS>

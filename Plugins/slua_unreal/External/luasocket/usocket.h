@@ -50,7 +50,7 @@
 #endif /* IPV6_LEAVE_GROUP */
 #endif /* !IPV6_DROP_MEMBERSHIP */
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 typedef int t_socket;
 typedef t_socket *p_socket;
@@ -58,6 +58,6 @@ typedef struct sockaddr_storage t_sockaddr_storage;
 
 #define SOCKET_INVALID (-1)
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* USOCKET_H */

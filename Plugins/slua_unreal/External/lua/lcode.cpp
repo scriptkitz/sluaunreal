@@ -26,7 +26,7 @@
 #include "ltable.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* Maximum number of registers in a Lua function (must fit in 8 bits) */
 #define MAXREGS		255
@@ -1199,4 +1199,4 @@ void luaK_setlist (FuncState *fs, int base, int nelems, int tostore) {
   fs->freereg = base + 1;  /* free registers with list values */
 }
 
-} // end NS_SLUA
+E_NS_SLUA

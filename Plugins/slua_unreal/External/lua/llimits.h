@@ -12,7 +12,7 @@
 
 #include "lua.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** 'lu_mem' and 'l_mem' are unsigned/signed integers big enough to count
@@ -320,6 +320,6 @@ typedef unsigned long Instruction;
 	{ if (G(L)->gcrunning) { pre; luaC_fullgc(L, 0); pos; } }
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

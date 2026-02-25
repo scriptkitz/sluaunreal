@@ -13,7 +13,7 @@
 #include "llimits.h"
 #include "lua.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** Extra tags for non-values
@@ -543,7 +543,7 @@ LUAI_FUNC const char *luaO_pushvfstring (lua_State *L, const char *fmt,
 LUAI_FUNC const char *luaO_pushfstring (lua_State *L, const char *fmt, ...);
 LUAI_FUNC void luaO_chunkid (char *out, const char *source, size_t len);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif
 

@@ -19,7 +19,7 @@
 #include "lobject.h"
 #include "lstate.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** About the realloc function:
@@ -96,4 +96,4 @@ void *luaM_realloc_ (lua_State *L, void *block, size_t osize, size_t nsize) {
   return newblock;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

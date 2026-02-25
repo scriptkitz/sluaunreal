@@ -24,6 +24,11 @@ public:
     UPROPERTY(Replicated)
         FLuaNetSerialization LuaNetSerialization;
 
+    UFUNCTION(BlueprintCallable, Category = "slua", meta = (DeprecatedFunction, DeprecationMessage = "Instead of using overload blueprint functions."))
+    FLuaBPVar CallLuaMember(FString FunctionName, const TArray<FLuaBPVar>& Args) {
+        return CallLuaFunction(FunctionName, Args);
+    }
+
 protected:
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "slua")
         FString LuaFilePath;

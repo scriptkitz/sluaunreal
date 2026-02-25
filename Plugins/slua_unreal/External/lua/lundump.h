@@ -11,7 +11,7 @@
 #include "lobject.h"
 #include "lzio.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* data to catch conversion errors */
 #define LUAC_DATA	"\x19\x93\r\n\x1a\n"
@@ -31,6 +31,6 @@ LUAI_FUNC LClosure* luaU_undump (lua_State* L, ZIO* Z, const char* name);
 LUAI_FUNC int luaU_dump (lua_State* L, const Proto* f, lua_Writer w, void* data, int strip);
 #endif // end _LUAC
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

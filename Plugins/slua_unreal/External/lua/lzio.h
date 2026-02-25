@@ -11,7 +11,7 @@
 #include "lua.h"
 #include "lmem.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #define EOZ	(-1)			/* end of stream */
 
@@ -63,6 +63,6 @@ struct Zio {
 
 LUAI_FUNC int luaZ_fill (ZIO *z);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

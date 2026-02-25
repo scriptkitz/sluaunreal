@@ -27,7 +27,7 @@
 #include "ltm.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #define noLuaClosure(f)		((f) == NULL || (f)->c.tt == LUA_TCCL)
 
@@ -697,4 +697,4 @@ void luaG_traceexec (lua_State *L) {
   }
 }
 
-} // end NS_SLUA
+E_NS_SLUA

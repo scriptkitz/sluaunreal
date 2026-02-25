@@ -32,7 +32,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 int auxiliar_open(lua_State *L);
 void auxiliar_newclass(lua_State *L, const char *classname, luaL_Reg *func);
@@ -46,6 +46,6 @@ int auxiliar_checkboolean(lua_State *L, int objidx);
 int auxiliar_tostring(lua_State *L);
 int auxiliar_typeerror(lua_State *L, int narg, const char *tname);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* AUXILIAR_H */

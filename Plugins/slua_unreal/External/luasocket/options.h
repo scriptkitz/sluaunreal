@@ -11,7 +11,7 @@
 #include "lua.h"
 #include "socket.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /* option registry */
 typedef struct t_opt {
@@ -59,6 +59,6 @@ int opt_get_ip6_v6only(lua_State *L, p_socket ps);
 int opt_meth_setoption(lua_State *L, p_opt opt, p_socket ps);
 int opt_meth_getoption(lua_State *L, p_opt opt, p_socket ps);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

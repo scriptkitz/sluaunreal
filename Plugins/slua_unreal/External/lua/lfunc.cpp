@@ -18,7 +18,7 @@
 #include "lobject.h"
 #include "lstate.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 CClosure *luaF_newCclosure (lua_State *L, int n) {
   GCObject *o = luaC_newobj(L, LUA_TCCL, sizeCclosure(n));
@@ -147,4 +147,4 @@ const char *luaF_getlocalname (const Proto *f, int local_number, int pc) {
   return NULL;  /* not found */
 }
 
-} // end NS_SLUA
+E_NS_SLUA

@@ -28,7 +28,7 @@ Group usage is semi-inherited from unix.c, but unnecessary since we
 have only one object type.
 */
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -197,4 +197,4 @@ static int serial_global_create(lua_State *L) {
 #endif
 }
 
-} // end NS_SLUA
+E_NS_SLUA

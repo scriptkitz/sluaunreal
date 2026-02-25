@@ -37,7 +37,7 @@
 #define l_signalT	sig_atomic_t
 #endif
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 struct lua_longjmp; /* defined in ldo.c */
 
@@ -229,7 +229,7 @@ LUAI_FUNC CallInfo *luaE_extendCI (lua_State *L);
 LUAI_FUNC void luaE_freeCI (lua_State *L);
 LUAI_FUNC void luaE_shrinkCI (lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif
 

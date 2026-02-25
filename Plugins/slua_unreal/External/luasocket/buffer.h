@@ -23,7 +23,7 @@
 /* buffer size in bytes */
 #define BUF_SIZE 8192
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* buffer control structure */
 typedef struct t_buffer_ {
@@ -44,6 +44,6 @@ int buffer_meth_getstats(lua_State *L, p_buffer buf);
 int buffer_meth_setstats(lua_State *L, p_buffer buf);
 int buffer_isempty(p_buffer buf);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* BUF_H */

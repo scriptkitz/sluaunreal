@@ -11,7 +11,7 @@
 #include "timeout.h"
 #include "select.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes.
@@ -221,4 +221,4 @@ static void make_assoc(lua_State *L, int tab) {
 }
 
 
-} // end NS_SLUA
+E_NS_SLUA

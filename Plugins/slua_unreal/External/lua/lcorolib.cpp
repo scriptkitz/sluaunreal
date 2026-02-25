@@ -15,7 +15,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 static lua_State *getco (lua_State *L) {
   lua_State *co = lua_tothread(L, 1);
@@ -165,4 +165,4 @@ LUAMOD_API int luaopen_coroutine (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

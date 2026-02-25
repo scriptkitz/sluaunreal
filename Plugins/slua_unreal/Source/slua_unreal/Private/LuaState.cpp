@@ -40,12 +40,15 @@
 #include "LuaProtobufWrap.h"
 #include "Stats/Stats.h"
 #include "luasocket/luasocket.h"
+#include "luafilesystem/src/lfs.h"
 
 namespace NS_SLUA {
+
+    static TMap<FString, FString> s_shortName2PathMap;
+
     FLuaStateInitEvent LuaState::onInitEvent;
     
     const int MaxLuaExecTime = 60; // in second
-    const int MaxLuaGCCount = 8192;
 
     static float GCStructTimeLimit = 0.001f;
 
@@ -120,7 +123,11 @@ namespace NS_SLUA {
     void LuaState::decreaseCallStack()
     {
         currentCallStack--;
+#if UE_5_5_OR_LATER
+        newObjectsInCallStack.Pop(EAllowShrinking::No);
+#else
         newObjectsInCallStack.Pop(false);
+#endif
     }
 
     bool LuaState::hasObjectInStack(const UObject* obj, int stackLayer)
@@ -130,13 +137,13 @@ namespace NS_SLUA {
 
     int LuaState::loader(lua_State* L) {
         LuaState* state = LuaState::get(L);
-        const char* fn = lua_tostring(L,1);
+        const char* fn = lua_tostring(L, 1);
         FString filepath;
         TArray<uint8> buf = state->loadFile(fn, filepath);
-        if(buf.Num() > 0) {
+        if (buf.Num() > 0) {
             char chunk[256];
-            snprintf(chunk,256,"@%s",TCHAR_TO_UTF8(*filepath));
-            if(luaL_loadbuffer(L,(const char*)buf.GetData(),buf.Num(),chunk)==0) {
+            snprintf(chunk, 256, "@%s", TCHAR_TO_UTF8(*filepath));
+            if (luaL_loadbuffer(L, (const char*)buf.GetData(), buf.Num(), chunk) == 0) {
                 return 1;
             }
             else {
@@ -199,15 +206,33 @@ namespace NS_SLUA {
                 }
             }
 
-#if ENGINE_MAJOR_VERSION==5 && ENGINE_MINOR_VERSION>0
-            static UPackage* AnyPackage = (UPackage*)-1;
-#else
-            static UPackage* AnyPackage = ANY_PACKAGE;
-#endif
             FString path = UTF8_TO_TCHAR(name);
-            if (!FindObject<UObject>(AnyPackage, *path)) {
-                // Try to load object if not found!
-                LoadObject<UObject>(NULL, *path);
+            static UPackage* AnyPackage = nullptr;
+            if (FPackageName::IsShortPackageName(path))
+            {
+                if (s_shortName2PathMap.Num() == 0)
+                {
+                    // 1. 缓存所有 Class
+                    for (TObjectIterator<UClass> It; It; ++It)
+                    {
+                        s_shortName2PathMap.Add(It->GetName(), It->GetPathName());
+                    }
+                    // 2. 缓存所有 Struct
+                    for (TObjectIterator<UScriptStruct> It; It; ++It)
+                    {
+                        s_shortName2PathMap.Add(It->GetName(), It->GetPathName());
+                    }
+                    // 3. 缓存所有 Enum
+                    for (TObjectIterator<UEnum> It; It; ++It)
+                    {
+                        s_shortName2PathMap.Add(It->GetName(), It->GetPathName());
+                    }
+                }
+				FString* found = s_shortName2PathMap.Find(path);
+                if (found)
+                {
+					path = *found;
+                }
             }
 
             UClass* uclass = FindObject<UClass>(AnyPackage, *path);
@@ -358,6 +383,9 @@ namespace NS_SLUA {
                 for (double start = FPlatformTime::Seconds(), now = start; stepCount < stepGCCountLimit &&
                     now - start + stepCost < stepGCTimeLimit; stepCount++)
                 {
+#if !UE_BUILD_SHIPPING
+                    PROFILER_WATCHER_X(stepTimes, "StepGCTimes");
+#endif
                     if (lua_gc(L, LUA_GCSTEP, 0)) {
                         lastFullGCSeconds = FPlatformTime::Seconds();
 #if !UE_BUILD_SHIPPING
@@ -555,11 +583,23 @@ namespace NS_SLUA {
         }
 #endif
 
-        // use custom memory alloc func to profile memory footprint
 #if ENABLE_PROFILER && !UE_BUILD_SHIPPING
+        // use custom memory alloc func to profile memory footprint
         L = lua_newstate(LuaMemoryProfile::alloc,this);
 #else
-        L = luaL_newstate();
+        L = lua_newstate([](void *ud, void *ptr, size_t osize, size_t nsize)
+        {
+            if (nsize == 0)
+            {
+                FMemory::Free(ptr);
+                ptr = nullptr;
+                return ptr;
+            }
+            else
+            {
+                return FMemory::Realloc(ptr, nsize);
+            }
+        }, nullptr);
 #endif
         
         lua_atpanic(L,_atPanic);
@@ -658,8 +698,7 @@ namespace NS_SLUA {
     }
 
     void LuaState::addLink(void* address) {
-        if (!propLinks.Contains(address))
-            propLinks.Add(address);
+        propLinks.FindOrAdd(address);
     }
 
     void LuaState::releaseLink(void* address) {
@@ -704,6 +743,8 @@ namespace NS_SLUA {
         auto& propList = *propLinksPtr;
 #if (ENGINE_MINOR_VERSION<25) && (ENGINE_MAJOR_VERSION==4)
         propList.RemoveSwap(propud);
+#elif UE_5_5_OR_LATER
+        propList.RemoveSwap(propud, EAllowShrinking::No);
 #else
         propList.RemoveSwap(propud, false);
 #endif
@@ -1321,6 +1362,7 @@ namespace NS_SLUA {
 
         static const luaL_Reg s_lib_preload[] = {
             { "socket.core", luaopen_socket_core },
+            { "lfs", luaopen_lfs },
             { NULL, NULL }
         };
 

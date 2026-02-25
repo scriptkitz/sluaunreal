@@ -7,19 +7,31 @@
 #include "LuaGameMode.generated.h"
 
 UCLASS(BlueprintType, Blueprintable)
+class SLUA_UNREAL_API ALuaGameModeBase : public AGameModeBase, public ILuaOverriderInterface
+{
+    GENERATED_UCLASS_BODY()
+
+public:
+    virtual void PostInitializeComponents() override;
+    void PostLuaHook() override { }
+    virtual FString GetLuaFilePath_Implementation() const override;
+
+protected:
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "slua")
+    FString LuaFilePath;
+};
+
+UCLASS(BlueprintType, Blueprintable)
 class SLUA_UNREAL_API ALuaGameMode : public AGameMode, public ILuaOverriderInterface
 {
     GENERATED_UCLASS_BODY()
 
 public:
     virtual void PostInitializeComponents() override;
-    void PostLuaHook() override
-    {
-    }
-
+    void PostLuaHook() override { }
     virtual FString GetLuaFilePath_Implementation() const override;
 
 protected:
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "slua")
-        FString LuaFilePath;
+    FString LuaFilePath;
 };

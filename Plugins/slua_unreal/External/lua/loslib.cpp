@@ -88,7 +88,7 @@
 /* }================================================================== */
 
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 
 /*
@@ -405,4 +405,4 @@ LUAMOD_API int luaopen_os (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

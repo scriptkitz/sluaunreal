@@ -17,7 +17,7 @@
 #include "lmem.h"
 #include "lstate.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 int luaZ_fill (ZIO *z) {
   size_t size;
@@ -65,4 +65,4 @@ size_t luaZ_read (ZIO *z, void *b, size_t n) {
   return 0;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

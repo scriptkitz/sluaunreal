@@ -25,7 +25,7 @@
 #include "ltable.h"
 #include "lzio.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #define next_tk(ls) (ls->current = zgetc(ls->z))
 
@@ -560,4 +560,4 @@ int luaX_lookahead (LexState *ls) {
   return ls->lookahead.token;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

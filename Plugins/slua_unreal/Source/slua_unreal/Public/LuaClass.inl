@@ -16,19 +16,19 @@ const char* LuaClassSource = R"code(
 local setmetatable = setmetatable
 local getmetatable = getmetatable
 local rawset = rawset
-local CBase
+local CLuaBase
 
 function Class(base, static, classImplement)
     if base == nil then
-        base = CBase
+        base = CLuaBase
     end
     classImplement = classImplement or {}
-    classImplement.__super_impl = base.__inner_impl
-    classImplement.__super = base
+    classImplement.__slua_super_impl = base.__slua_inner_impl
+    classImplement.__slua_super = base
 
     local base_mt = getmetatable(base)
     local class = static or {}
-    class.__inner_impl = classImplement
+    class.__slua_inner_impl = classImplement
 
     local class_index = function (t, k, cache)
         local impl = classImplement
@@ -41,7 +41,7 @@ function Class(base, static, classImplement)
                 end
                 return ret
             end
-            impl = impl.__super_impl
+            impl = impl.__slua_super_impl
         end
         return nil
     end
@@ -52,7 +52,7 @@ function Class(base, static, classImplement)
     }
 
     local function recursiveCtor(r, impl, ...)
-        local superImpl = impl.__super_impl
+        local superImpl = impl.__slua_super_impl
         if superImpl then
             recursiveCtor(r, superImpl, ...)
         end
@@ -80,4 +80,10 @@ function Class(base, static, classImplement)
     )
     return class
 end
+
+local base = {}
+setmetatable(base, {__call = function () return {} end})
+
+CLuaBase = Class(base, nil, nil)
+
 )code";

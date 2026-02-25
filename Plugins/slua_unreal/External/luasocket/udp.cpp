@@ -26,7 +26,7 @@
 #define gai_strerror gai_strerrorA
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -446,4 +446,4 @@ static int udp_global_create6(lua_State *L) {
     return udp_create(L, AF_INET6);
 }
 
-} // end NS_SLUA
+E_NS_SLUA

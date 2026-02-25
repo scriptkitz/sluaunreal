@@ -16,7 +16,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #undef PI
 #define PI	(l_mathop(3.141592653589793238462643383279502884))
@@ -403,4 +403,4 @@ LUAMOD_API int luaopen_math (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

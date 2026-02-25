@@ -31,7 +31,7 @@
 #define savestack(L,p)		((char *)(p) - (char *)L->stack)
 #define restorestack(L,n)	((TValue *)((char *)L->stack + (n)))
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* type of protected functions, to be ran by 'runprotected' */
 typedef void (*Pfunc) (lua_State *L, void *ud);
@@ -54,7 +54,7 @@ LUAI_FUNC void luaD_inctop (lua_State *L);
 LUAI_FUNC l_noret luaD_throw (lua_State *L, int errcode);
 LUAI_FUNC int luaD_rawrunprotected (lua_State *L, Pfunc f, void *ud);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif
 

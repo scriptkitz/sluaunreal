@@ -9,7 +9,7 @@
 
 #include "except.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*=========================================================================*\
 * Internal function prototypes.
@@ -102,4 +102,4 @@ int except_open(lua_State *L) {
     return 0;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

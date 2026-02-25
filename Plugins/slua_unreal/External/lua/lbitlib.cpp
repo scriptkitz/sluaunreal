@@ -13,7 +13,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #if defined(LUA_COMPAT_BITLIB)		/* { */
 
@@ -229,4 +229,4 @@ LUAMOD_API int luaopen_bit32 (lua_State *L) {
 
 #endif					/* } */
 
-} // end NS_SLUA
+E_NS_SLUA

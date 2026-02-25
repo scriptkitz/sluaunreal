@@ -59,7 +59,7 @@
 /* }====================================================== */
 
 
-namespace NS_SLUA {
+S_NS_SLUA
 /*
 ** Change this macro to accept other modes for 'fopen' besides
 ** the standard ones.
@@ -765,4 +765,4 @@ LUAMOD_API int luaopen_io (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

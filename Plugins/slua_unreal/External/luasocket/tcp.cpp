@@ -13,7 +13,7 @@
 #include "options.h"
 #include "tcp.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -490,4 +490,4 @@ static int tcp_global_connect(lua_State *L) {
     return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

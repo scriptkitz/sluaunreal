@@ -20,7 +20,7 @@
 #include "timeout.h"
 #include "socket.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 typedef struct t_tcp_ {
     t_socket sock;
@@ -34,6 +34,6 @@ typedef t_tcp *p_tcp;
 
 int tcp_open(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* TCP_H */

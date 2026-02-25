@@ -32,5 +32,10 @@ public:
     virtual void BeginDestroy() override;
 
     FString GetLuaFilePath_Implementation() const override;
+
+    UFUNCTION(BlueprintCallable, Category = "slua", meta = (DeprecatedFunction, DeprecationMessage = "Instead of using overload blueprint functions."))
+    FLuaBPVar CallLuaMember(FString FunctionName, const TArray<FLuaBPVar>& Args) {
+        return CallLuaFunction(FunctionName, Args);
+    }
 };
 

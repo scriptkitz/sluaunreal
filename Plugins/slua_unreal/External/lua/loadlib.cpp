@@ -28,7 +28,7 @@
 #endif
 
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** LUA_IGMARK is a mark to ignore all before it when building the
@@ -786,4 +786,4 @@ LUAMOD_API int luaopen_package (lua_State *L) {
   return 1;  /* return 'package' table */
 }
 
-} // end NS_SLUA
+E_NS_SLUA

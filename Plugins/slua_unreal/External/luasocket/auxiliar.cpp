@@ -7,7 +7,7 @@
 
 #include "auxiliar.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*=========================================================================*\
 * Exported functions
@@ -159,4 +159,4 @@ int auxiliar_typeerror (lua_State *L, int narg, const char *tname) {
 }
 
 
-} // end NS_SLUA
+E_NS_SLUA

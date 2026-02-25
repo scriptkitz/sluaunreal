@@ -19,7 +19,7 @@
 #ifndef SOCKET_SELECT
 #include <sys/poll.h>
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 #define WAITFD_R        POLLIN
 #define WAITFD_W        POLLOUT
@@ -452,6 +452,6 @@ const char *socket_gaistrerror(int err) {
 }
 
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif // _WIN32

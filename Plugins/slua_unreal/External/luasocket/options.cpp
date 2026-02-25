@@ -10,7 +10,7 @@
 #include "options.h"
 #include "inet.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal functions prototypes
@@ -364,4 +364,4 @@ static int opt_setint(lua_State *L, p_socket ps, int level, int name)
     return opt_set(L, ps, level, name, (char *) &val, sizeof(val));
 }
 
-} // end NS_SLUA
+E_NS_SLUA

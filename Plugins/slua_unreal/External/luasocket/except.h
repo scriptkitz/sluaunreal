@@ -28,10 +28,10 @@
 
 #include "lua.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 int except_open(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

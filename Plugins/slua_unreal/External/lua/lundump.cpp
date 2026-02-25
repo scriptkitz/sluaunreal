@@ -21,7 +21,7 @@
 #include "lstring.h"
 #include "lzio.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #if !defined(luai_verifycode)
 #define luai_verifycode(L,b,f)  /* empty */
@@ -276,4 +276,4 @@ LClosure *luaU_undump(lua_State *L, ZIO *Z, const char *name) {
   return cl;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

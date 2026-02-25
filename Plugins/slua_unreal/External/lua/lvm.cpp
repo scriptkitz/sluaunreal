@@ -29,7 +29,7 @@
 #include "ltable.h"
 #include "ltm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* limit for table tag-method chains (to avoid loops) */
 #define MAXTAGLOOP	2000
@@ -1322,4 +1322,4 @@ void luaV_execute (lua_State *L) {
 
 /* }================================================================== */
 
-} // end NS_SLUA
+E_NS_SLUA

@@ -43,7 +43,7 @@
 #define luai_makeseed()		cast(unsigned int, time(NULL))
 #endif
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** thread state + extra space
@@ -346,4 +346,4 @@ LUA_API void lua_close (lua_State *L) {
   close_state(L);
 }
 
-} // end NS_SLUA
+E_NS_SLUA

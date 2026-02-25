@@ -19,7 +19,12 @@ public:
 
     UFUNCTION(Blueprintcallable)
     void UnRegistLuaTick();
-    
+
+    UFUNCTION(BlueprintCallable, Category = "slua", meta = (DeprecatedFunction, DeprecationMessage = "Instead of using overload blueprint functions."))
+    FLuaBPVar CallLuaMember(FString FunctionName, const TArray<FLuaBPVar>& Args) {
+        return CallLuaFunction(FunctionName, Args);
+    }
+
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 protected:
     void onLuaStateInit(NS_SLUA::lua_State* L);

@@ -9,7 +9,7 @@
 
 #include "lstate.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #define pcRel(pc, p)	(cast(int, (pc) - (p)->code) - 1)
 
@@ -35,6 +35,6 @@ LUAI_FUNC const char *luaG_addinfo (lua_State *L, const char *msg,
 LUAI_FUNC l_noret luaG_errormsg (lua_State *L);
 LUAI_FUNC void luaG_traceexec (lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

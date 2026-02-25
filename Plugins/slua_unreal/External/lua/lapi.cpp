@@ -27,7 +27,7 @@
 #include "lundump.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 const char lua_ident[] =
   "$LuaVersion: " LUA_COPYRIGHT " $"
@@ -1295,4 +1295,4 @@ LUA_API void lua_upvaluejoin (lua_State *L, int fidx1, int n1,
   luaC_upvalbarrier(L, *up1);
 }
 
-} // end NS_SLUA
+E_NS_SLUA

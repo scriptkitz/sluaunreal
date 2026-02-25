@@ -21,7 +21,7 @@
 #include "ltable.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 static const char udatatypename[] = "userdata";
 
@@ -162,4 +162,4 @@ int luaT_callorderTM (lua_State *L, const TValue *p1, const TValue *p2,
     return !l_isfalse(L->top);
 }
 
-} // end NS_SLUA
+E_NS_SLUA

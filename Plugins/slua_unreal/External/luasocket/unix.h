@@ -17,7 +17,7 @@
 #define UNIX_API extern
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 typedef struct t_unix_ {
     t_socket sock;
@@ -29,6 +29,6 @@ typedef t_unix *p_unix;
 
 UNIX_API int luaopen_socket_unix(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* UNIX_H */

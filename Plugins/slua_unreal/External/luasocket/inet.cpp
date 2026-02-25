@@ -15,7 +15,7 @@
 #define gai_strerror gai_strerrorA
 #endif
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*=========================================================================*\
 * Internal function prototypes.
@@ -541,4 +541,4 @@ int inet_pton(int af, const char *src, void *dst)
 
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA

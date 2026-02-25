@@ -23,7 +23,7 @@
 #include <time.h>
 #endif
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** Operations that an object must define to mimic a table
@@ -451,4 +451,4 @@ LUAMOD_API int luaopen_table (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

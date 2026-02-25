@@ -12,7 +12,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 typedef int socklen_t;
 typedef SOCKADDR_STORAGE t_sockaddr_storage;
@@ -33,6 +33,6 @@ typedef t_socket *p_socket;
 #define AI_NUMERICSERV (0)
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA
 #endif
 #endif /* WSOCKET_H */

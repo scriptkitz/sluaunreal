@@ -31,7 +31,7 @@ namespace NS_SLUA
 #if WITH_EDITOR
     TSet<TWeakObjectPtr<UFunction>> LuaNet::luaRPCFuncs;
 #endif
-    TMap<FString, EFunctionFlags> LuaNet::luaRPCTypeMap = {
+    LuaNet::FLuaRPCTypeList LuaNet::luaRPCTypeList = {
         {TEXT("MulticastRPC"), FUNC_NetMulticast},
         {TEXT("ServerRPC"), FUNC_NetServer},
         {TEXT("ClientRPC"), FUNC_NetClient}
@@ -104,17 +104,18 @@ namespace NS_SLUA
         {
             auto classLuaReplicated = *classLuaReplicatedPtr;
             if (classLuaReplicated->ustruct.IsValid())
-	        {
-	            classLuaReplicated->ustruct->RemoveFromRoot();
-	        }
+            {
+                classLuaReplicated->ustruct->RemoveFromRoot();
+            }
             delete classLuaReplicated;
             classLuaReplicatedMap.Remove(cls);
         }
     }
 
-    void LuaNet::addLuaRPCType(const FString& rpcType, EFunctionFlags netFlag)
+    void LuaNet::addLuaRPCType(const FString& rpcTypeName, EFunctionFlags netFlag)
     {
-        luaRPCTypeMap.Add(rpcType, netFlag);
+        check(!luaRPCTypeList.FindByPredicate([&rpcTypeName](const FLuaRPCType& rpcType) { return rpcType.typeName == rpcTypeName; }));
+        luaRPCTypeList.Add({ rpcTypeName, netFlag});
     }
 
     ClassLuaReplicated* LuaNet::addClassReplicatedProps(NS_SLUA::lua_State* L, UObject* obj, const NS_SLUA::LuaVar& luaModule)
@@ -557,9 +558,63 @@ namespace NS_SLUA
         {
             cls->ClearFunctionMapsCaches();
             addedRPCClasses.Add(cls);
+            clearClassNetCache(cls);
         }
 
         return bAdded;
+    }
+
+    typedef TMap< TWeakObjectPtr< const UClass >, FClassNetCache* > TClassNetCacheMap;
+    ACCESS_PRIVATE_FIELD(FClassNetCacheMgr, TClassNetCacheMap, ClassFieldIndices);
+
+    void LuaNet::clearClassNetCache(UClass* cls)
+    {
+        static auto netCacheClassFieldIndicesPtr = PrivateFClassNetCacheMgrClassFieldIndices();
+
+        if (!cls || !GEngine){ return;}
+
+        for (const FWorldContext& WorldContext : GEngine->GetWorldContexts())
+        {
+            UWorld* world = WorldContext.World();
+            if (!world){ continue;}
+            UNetDriver* netDriver = world->GetNetDriver();
+            if (!netDriver){ continue;}
+            TSharedPtr<FClassNetCacheMgr> netCache = netDriver->NetCache;
+            if (!netCache.IsValid()){ continue; }
+
+            TClassNetCacheMap& netCacheMap = netCache.Get()->*netCacheClassFieldIndicesPtr;
+
+            // clear Children first
+            TArray<TWeakObjectPtr< const UClass >> keys;
+            netCacheMap.GetKeys(keys);
+            for (TWeakObjectPtr< const UClass > key : keys)
+            {
+                auto keyCls = key.Get();
+                if (keyCls && keyCls != cls && key->IsChildOf(cls))
+                {
+
+#if !((ENGINE_MINOR_VERSION<20) && (ENGINE_MAJOR_VERSION==4))
+                    const_cast<UClass*>(keyCls)->ClassFlags &= ~CLASS_ReplicationDataIsSetUp;
+#endif
+                    if (FClassNetCache** keyClassNetCache = netCacheMap.Find(key))
+                    {
+                        delete *keyClassNetCache;
+                        netCacheMap.Remove(key);
+                    }
+                }
+            }
+
+#if !((ENGINE_MINOR_VERSION<20) && (ENGINE_MAJOR_VERSION==4))
+            cls->ClassFlags &= ~CLASS_ReplicationDataIsSetUp;
+#endif
+            if (FClassNetCache** classNetCache = netCacheMap.Find(cls))
+            {
+                delete *classNetCache;
+                netCacheMap.Remove(cls);
+            }
+
+            netCacheMap.Compact();
+        }
     }
 
     LuaVar getLuaImpl(lua_State* L, const LuaVar& luaModule)
@@ -572,12 +627,12 @@ namespace NS_SLUA
             lua_pop(L, 1); // pop metatable
 
             // Find subclass function names.
-            int subType = lua_getfield(L, -1, "__inner_impl");
+            int subType = lua_getfield(L, -1, "__slua_inner_impl");
             if (subType == LUA_TTABLE)
             {
                 ret.set(L, -1);
             }
-            lua_pop(L, 1); // pop __inner_impl
+            lua_pop(L, 1); // pop __slua_inner_impl
         }
         lua_pop(L, 1); // pop luaModule
         return ret;
@@ -601,7 +656,7 @@ namespace NS_SLUA
         while (temp1 != temp2)
         {
             auto impl = getLuaImpl(L, temp1);
-            temp1 = impl.isTable() ? impl.getFromTable<LuaVar>("__super") : LuaVar();
+            temp1 = impl.isTable() ? impl.getFromTable<LuaVar>("__slua_super") : LuaVar();
 
             if (temp1 == B) // Adapt to most situations and prune.
             {
@@ -614,7 +669,7 @@ namespace NS_SLUA
             }
             
             impl = getLuaImpl(L, temp2);
-            temp2 = impl.isTable() ? impl.getFromTable<LuaVar>("__super") : LuaVar();
+            temp2 = impl.isTable() ? impl.getFromTable<LuaVar>("__slua_super") : LuaVar();
             if (!temp2.isTable())
             {
                 temp2 = A;
@@ -635,13 +690,14 @@ namespace NS_SLUA
         LuaVar luaImpl = getLuaImpl(L, luaModule);
         if (luaImpl.isTable())
         {
-            LuaVar luaSuperModule = luaImpl.getFromTable<LuaVar>("__super");
+            LuaVar luaSuperModule = luaImpl.getFromTable<LuaVar>("__slua_super");
             bAdded |= addModuleRPCRecursive(L, cls, luaSuperModule, cppSuperModule);
         }
 
-        for (TMap<FString, EFunctionFlags>::TConstIterator iter(LuaNet::luaRPCTypeMap); iter; ++iter)
+        for (auto &iter : LuaNet::luaRPCTypeList)
         {
-            bAdded |= addClassRPCByType(L, cls, luaModule, iter.Key(), iter.Value());
+            const char* varstring = const_cast<LuaVar*>(&luaModule)->toString();
+            bAdded |= addClassRPCByType(L, cls, luaModule, iter.typeName, iter.netFlags);
         }
         return bAdded;
     }

@@ -22,7 +22,7 @@
 #define LUASOCKET_INET_ATON
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 int inet_open(lua_State *L);
 
@@ -49,6 +49,6 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
 int inet_pton(int af, const char *src, void *dst);
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* INET_H */

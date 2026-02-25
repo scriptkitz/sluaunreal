@@ -26,7 +26,7 @@
 #include "lstring.h"
 #include "lvm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 LUAI_DDEF const TValue luaO_nilobject_ = {NILCONSTANT};
 
@@ -517,4 +517,4 @@ void luaO_chunkid (char *out, const char *source, size_t bufflen) {
   }
 }
 
-} // end NS_SLUA
+E_NS_SLUA

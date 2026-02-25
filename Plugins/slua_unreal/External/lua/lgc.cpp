@@ -23,7 +23,7 @@
 #include "ltable.h"
 #include "ltm.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** internal state for collector while inside the atomic phase. The
@@ -1174,4 +1174,4 @@ void luaC_fullgc (lua_State *L, int isemergency) {
 
 /* }====================================================== */
 
-} // end NS_SLUA
+E_NS_SLUA

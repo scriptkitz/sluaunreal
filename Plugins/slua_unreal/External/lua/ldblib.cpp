@@ -17,7 +17,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** The hook table at registry[&HOOKKEY] maps threads to their current
@@ -453,4 +453,4 @@ LUAMOD_API int luaopen_debug (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

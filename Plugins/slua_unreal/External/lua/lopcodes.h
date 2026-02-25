@@ -9,7 +9,7 @@
 
 #include "llimits.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*===========================================================================
   We assume that instructions are unsigned numbers.
@@ -290,6 +290,6 @@ LUAI_DDEC const lu_byte luaP_opmodes[NUM_OPCODES];
 /* number of list items to accumulate before a SETLIST instruction */
 #define LFIELDS_PER_FLUSH	50
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

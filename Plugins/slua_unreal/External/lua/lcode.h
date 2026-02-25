@@ -18,7 +18,7 @@
 */
 #define NO_JUMP (-1)
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** grep "ORDER OPR" if you change these enums  (ORDER OP)
@@ -84,6 +84,6 @@ LUAI_FUNC void luaK_posfix (FuncState *fs, BinOpr op, expdesc *v1,
                             expdesc *v2, int line);
 LUAI_FUNC void luaK_setlist (FuncState *fs, int base, int nelems, int tostore);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

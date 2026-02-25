@@ -23,7 +23,7 @@
 
 #define iscont(p)	((*(p) & 0xC0) == 0x80)
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* from strlib */
 /* translate a relative string position: negative means back from end */
@@ -254,4 +254,4 @@ LUAMOD_API int luaopen_utf8 (lua_State *L) {
   return 1;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

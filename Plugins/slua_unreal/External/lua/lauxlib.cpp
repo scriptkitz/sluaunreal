@@ -48,7 +48,7 @@
 #define LEVELS1	10	/* size of the first part of the stack */
 #define LEVELS2	11	/* size of the second part of the stack */
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** search for 'objidx' in table at index -1.
@@ -1028,4 +1028,4 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver, size_t sz) {
                   (LUAI_UACNUMBER)ver, (LUAI_UACNUMBER)*v);
 }
 
-} // end NS_SLUA
+E_NS_SLUA

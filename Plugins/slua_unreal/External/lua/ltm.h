@@ -10,7 +10,7 @@
 
 #include "lobject.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 * WARNING: if you change the order of this enumeration,
@@ -72,6 +72,6 @@ LUAI_FUNC void luaT_trybinTM (lua_State *L, const TValue *p1, const TValue *p2,
 LUAI_FUNC int luaT_callorderTM (lua_State *L, const TValue *p1,
                                 const TValue *p2, TMS event);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

@@ -6,7 +6,7 @@
 \*=========================================================================*/
 #include "lua.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA
 
 /* timeout control structure */
 typedef struct t_timeout_ {
@@ -27,6 +27,6 @@ int timeout_meth_settimeout(lua_State *L, p_timeout tm);
 
 #define timeout_iszero(tm)   ((tm)->block == 0.0)
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* TIMEOUT_H */

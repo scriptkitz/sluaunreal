@@ -19,7 +19,7 @@
 #include "lobject.h"
 #include "lstate.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #define MEMERRMSG       "not enough memory"
 
@@ -245,4 +245,4 @@ Udata *luaS_newudata (lua_State *L, size_t s) {
   return u;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

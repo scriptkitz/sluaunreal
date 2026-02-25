@@ -256,7 +256,19 @@
 
 #if defined(_WIN32)
 #undef LUA_API
-#define LUA_API extern "C" __declspec(dllexport)
+#ifdef __cplusplus
+	#define LUA_API extern "C" __declspec(dllexport)
+#else
+#define LUA_API __declspec(dllexport)
+#endif
+#endif
+
+#ifdef __cplusplus
+#define S_NS_SLUA namespace NS_SLUA {
+#define E_NS_SLUA } // end NS_SLUA
+#else
+#define S_NS_SLUA
+#define E_NS_SLUA
 #endif
 
 /* more often than not the libs go together with the core */

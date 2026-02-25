@@ -28,7 +28,7 @@
 \*=========================================================================*/
 #include "timeout.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /* we are lazy... */
 typedef struct sockaddr SA;
@@ -77,6 +77,6 @@ const char *socket_ioerror(p_socket ps, int err);
 int socket_gethostbyaddr(const char *addr, socklen_t len, struct hostent **hp);
 int socket_gethostbyname(const char *addr, struct hostent **hp);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* SOCKET_H */

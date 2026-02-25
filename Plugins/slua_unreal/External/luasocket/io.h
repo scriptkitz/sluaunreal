@@ -17,7 +17,7 @@
 
 #include "timeout.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /* IO error codes */
 enum {
@@ -63,7 +63,7 @@ typedef t_io *p_io;
 void io_init(p_io io, p_send send, p_recv recv, p_error error, void *ctx);
 const char *io_strerror(int err);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* IO_H */
 

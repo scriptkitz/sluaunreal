@@ -19,7 +19,7 @@
 #endif
 
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Don't want to trust escape character constants
@@ -735,7 +735,7 @@ static int mime_global_dot(lua_State *L)
 }
 
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #ifndef _WIN32
 #pragma clang diagnostic pop

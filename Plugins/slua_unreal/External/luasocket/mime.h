@@ -24,10 +24,10 @@
 #define MIME_API extern
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 MIME_API int luaopen_mime_core(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* MIME_H */

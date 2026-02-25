@@ -72,7 +72,7 @@
 
 #endif							/* } */
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* chain list of long jump buffers */
 struct lua_longjmp {
@@ -797,4 +797,4 @@ int luaD_protectedparser (lua_State *L, ZIO *z, const char *name,
   return status;
 }
 
-} // end NS_SLUA
+E_NS_SLUA

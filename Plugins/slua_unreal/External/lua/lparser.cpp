@@ -25,7 +25,7 @@
 #include "lstring.h"
 #include "ltable.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /* maximum number of local variables per function (must be smaller
    than 250, due to the bytecode format) */
@@ -1646,4 +1646,4 @@ LClosure *luaY_parser (lua_State *L, ZIO *z, Mbuffer *buff,
   return cl;  /* closure is on the stack, too */
 }
 
-} // end NS_SLUA
+E_NS_SLUA

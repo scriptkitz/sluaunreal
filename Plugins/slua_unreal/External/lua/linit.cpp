@@ -32,7 +32,7 @@
 #include "lualib.h"
 #include "lauxlib.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 /*
 ** these libs are loaded by lua.c and are readily available to any Lua
@@ -65,4 +65,4 @@ LUALIB_API void luaL_openlibs (lua_State *L) {
   }
 }
 
-} // end NS_SLUA
+E_NS_SLUA

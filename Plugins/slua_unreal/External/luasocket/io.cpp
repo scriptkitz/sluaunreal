@@ -4,7 +4,7 @@
 \*=========================================================================*/
 #include "io.h"
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Exported functions
@@ -31,4 +31,4 @@ const char *io_strerror(int err) {
     }
 }
 
-} // end NS_SLUA
+E_NS_SLUA

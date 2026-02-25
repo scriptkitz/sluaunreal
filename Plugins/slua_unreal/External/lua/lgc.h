@@ -131,7 +131,7 @@
 	(iscollectable((uv)->v) && !upisopen(uv)) ? \
          luaC_upvalbarrier_(L,uv) : cast_void(0))
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 LUAI_FUNC void luaC_fix (lua_State *L, GCObject *o);
 LUAI_FUNC void luaC_freeallobjects (lua_State *L);
@@ -145,6 +145,6 @@ LUAI_FUNC void luaC_upvalbarrier_ (lua_State *L, UpVal *uv);
 LUAI_FUNC void luaC_checkfinalizer (lua_State *L, GCObject *o, Table *mt);
 LUAI_FUNC void luaC_upvdeccount (lua_State *L, UpVal *uv);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif

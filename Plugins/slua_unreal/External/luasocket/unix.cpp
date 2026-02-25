@@ -18,7 +18,7 @@
 #include <sys/un.h> 
 #endif // _WIN32
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -360,4 +360,4 @@ static int unix_global_create(lua_State *L) {
     }
 }
 
-} // end NS_SLUA
+E_NS_SLUA

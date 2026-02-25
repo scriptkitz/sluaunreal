@@ -27,7 +27,7 @@
 #define MAX(x, y) ((x) > (y) ? x : y)
 #endif
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 /*=========================================================================*\
 * Internal function prototypes
@@ -222,4 +222,4 @@ int timeout_lua_sleep(lua_State *L)
 }
 #endif
 
-} // end NS_SLUA
+E_NS_SLUA

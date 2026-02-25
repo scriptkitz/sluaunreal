@@ -16,7 +16,7 @@
 #include "lstate.h"
 #include "lundump.h"
 
-namespace NS_SLUA {
+S_NS_SLUA
 
 #ifdef _LUAC
 
@@ -215,4 +215,4 @@ int luaU_dump(lua_State *L, const Proto *f, lua_Writer w, void *data,
 
 #endif // end _LUAC
 
-} // end NS_SLUA
+E_NS_SLUA

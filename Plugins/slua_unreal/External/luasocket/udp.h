@@ -20,7 +20,7 @@
 /* can't be larger than wsocket.c MAXCHUNK!!! */
 #define UDP_DATAGRAMSIZE 8192
 
-namespace NS_SLUA {    
+S_NS_SLUA    
 
 typedef struct t_udp_ {
     t_socket sock;
@@ -31,6 +31,6 @@ typedef t_udp *p_udp;
 
 int udp_open(lua_State *L);
 
-} // end NS_SLUA
+E_NS_SLUA
 
 #endif /* UDP_H */
